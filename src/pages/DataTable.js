@@ -1,5 +1,5 @@
 
-import { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import EmptyTable from "../components/EmptyTable";
 import RowInput from "../components/Row";
 
@@ -7,20 +7,20 @@ function DataTable() {
     const [rowsData, setRowsData] = useState([]);
     const [result, setResult] = useState(0);
 
-    const addNewRow = useCallback(() => {
+    const addNewRow = () => {
         const rowsInput = {
             inputValue: '',
             calculationType: 'add',
             enabled: true
         }
         setRowsData([...rowsData, rowsInput]);
-    });
+    };
 
-    const deleteRow = useCallback((index) => {
+    const deleteRow = (index) => {
         const rows = [...rowsData];
         rows.splice(index, 1);
         calculationResult(rows);
-    });
+    };
 
 
     const toggleRowState = useCallback((state, index) => {
@@ -29,12 +29,12 @@ function DataTable() {
         calculationResult(rows);
     });
 
-    const changeCalculationType = (ev, index) => {
+    const changeCalculationType = useCallback((ev, index) => {
         const rowsInput = [...rowsData];
         rowsInput[index].calculationType = ev.target.value;
         calculationResult(rowsData);
 
-    }
+    })
 
     const handleChange = useCallback((ev, index) => {
         const { value } = ev.target;
@@ -74,4 +74,4 @@ function DataTable() {
 
 
 
-export default DataTable;
+export default React.memo(DataTable);

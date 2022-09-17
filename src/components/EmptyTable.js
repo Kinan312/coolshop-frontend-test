@@ -1,6 +1,3 @@
-
-
-
 import React from "react";
 
 function EmptyTable() {
@@ -11,7 +8,6 @@ function EmptyTable() {
         </div>
 
     );
-
 }
 
 export default React.memo(EmptyTable);
